@@ -4,30 +4,42 @@ import itertools
 def FahrToCels():
     output = (measure - 32) / 1.8
     roundedOutput = round(output, 2)
-    print("{0}F is {1}C".format(measure, roundedOutput)) # Fahrenheit to Celsius conversion
+    print("{0}Fahrenheit = {1}Celsius".format(measure, roundedOutput))
 
 def CelsToFahr():
-    output = (measure * 1.8) + 3
+    output = (measure * 1.8) + 32
     roundedOutput = round(output, 2)
-    print("{0}C is {1}F".format(measure, roundedOutput)) # Celsius to Fahrenheit conversion
+    print("{0}Celsius = {1}Fahrenheit".format(measure, roundedOutput))
 
 def CentToInch():
     output = measure / 2.54
     roundedOutput = round(output, 2)
-    print("{0}CM is {1}inches".format(measure, roundedOutput)) # Centimeters to Inches conversion
+    print("{0}Centimeter(s) = {1}Inch(es)".format(measure, roundedOutput))
 
 def InchToCent():
     output = measure * 2.54
     roundedOutput = round(output, 2)
-    print("{0}Inches is {1}CM".format(measure, roundedOutput)) #Inches to Centimeters conversion
+    print("{0}Inch(es) = {1}Centimeter(s)".format(measure, roundedOutput))
+
+def KiloToPoun():
+    output = measure * 2.2046244202
+    roundedOutput = round(output, 2)
+    print("{0}Kilogram(s) = {1}Pound(s)".format(measure, roundedOutput))
+
+def PounToKilo():
+    output = measure * 0.453592
+    roundedOutput = round(output, 2)
+    print("{0}Pound(s) = {1}Kilogram(s)".format(measure, roundedOutput))
 
 conversionDict = {"A": FahrToCels,
                   "B": CelsToFahr,
                   "C": CentToInch,
-                  "D": InchToCent}
+                  "D": InchToCent,
+                  "E": KiloToPoun,
+                  "F": PounToKilo}
 
 for _ in itertools.count():
-    conversion = input("\nplease choose your conversion\n A - Fahrenheit to Celsius\n B - Celsius to Fahrenheit\n C - Centimeters to Inches\n D - Inches to Centimeters\n ")
+    conversion = input("\nplease choose your conversion\n A - Fahrenheit to Celsius\n B - Celsius to Fahrenheit\n C - Centimeters to Inches\n D - Inches to Centimeters\n E - Kilogram to Pound\n F - Pound to Kilogram\n ")
 
     measure = input("\nplease input your measure here: ")
     try:
@@ -36,4 +48,8 @@ for _ in itertools.count():
         print("please try again.")
         continue
 
-    conversionDict.get(conversion)() # uses the user input to choose which conversion to use from the dictionary
+    try:
+        conversionDict.get(conversion)()
+    except:
+        print("invalid conversion")
+        continue
