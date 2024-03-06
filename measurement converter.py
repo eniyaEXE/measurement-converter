@@ -1,55 +1,70 @@
 # measurement converter
 import itertools
 
-def FahrToCels():
-    output = (measure - 32) / 1.8
-    roundedOutput = round(output, 2)
-    print("{0}Fahrenheit = {1}Celsius".format(measure, roundedOutput))
+# Values for calculating the conversions.
+conversionValues = {12: 1000,
+                    13: 0.2641721769,
+                    14: 33.814038638,
+                    21: 0.001,
+                    23: 0.0002641722,
+                    24: 0.0338140386,
+                    31: 3.78541,
+                    32: 3785.41,
+                    34: 128,
+                    41: 0.0295735156,
+                    42: 29.573515625,
+                    43: 0.0078125,
+                    56: 2.2046244202,
+                    65: 0.453592,
+                    78: 0.3937007874,
+                    87: 2.54,
+                    910: 1.8,
+                    109: 0.555555555}
 
-def CelsToFahr():
-    output = (measure * 1.8) + 32
-    roundedOutput = round(output, 2)
-    print("{0}Celsius = {1}Fahrenheit".format(measure, roundedOutput))
+# Corrections for temperature, since 0C =/= 0F, to convert them you cannot simply multiply by a number.
+tempCorrections = {910: 32,
+                   109: -17.77777777}
 
-def CentToInch():
-    output = measure / 2.54
-    roundedOutput = round(output, 2)
-    print("{0}Centimeter(s) = {1}Inch(es)".format(measure, roundedOutput))
-
-def InchToCent():
-    output = measure * 2.54
-    roundedOutput = round(output, 2)
-    print("{0}Inch(es) = {1}Centimeter(s)".format(measure, roundedOutput))
-
-def KiloToPoun():
-    output = measure * 2.2046244202
-    roundedOutput = round(output, 2)
-    print("{0}Kilogram(s) = {1}Pound(s)".format(measure, roundedOutput))
-
-def PounToKilo():
-    output = measure * 0.453592
-    roundedOutput = round(output, 2)
-    print("{0}Pound(s) = {1}Kilogram(s)".format(measure, roundedOutput))
-
-conversionDict = {"A": FahrToCels,
-                  "B": CelsToFahr,
-                  "C": CentToInch,
-                  "D": InchToCent,
-                  "E": KiloToPoun,
-                  "F": PounToKilo}
+# Assigning integers to the units.
+unitDict = {"Liter": 1,
+            "Mililiter": 2,
+            "Gallon": 3,
+            "Fluid ounce": 4,
+            "Kilogram": 5,
+            "Pound": 6,
+            "Centimeter": 7,
+            "Inch": 8,
+            "Degrees Celsius": 9,
+            "Degrees Fahrenheit": 10,
+            "Celsius": 9,
+            "Fahrenheit": 10}
 
 for _ in itertools.count():
-    conversion = input("\nplease choose your conversion\n A - Fahrenheit to Celsius\n B - Celsius to Fahrenheit\n C - Centimeters to Inches\n D - Inches to Centimeters\n E - Kilogram to Pound\n F - Pound to Kilogram\n ")
+    print("\nList of available units (v2.0):\n\nLiter\nMililiter\nGallon\nFluid ounce\nKilogram\nPound\nCentimeter\nInch\nDegrees Celsius\nDegrees Fahrenheit")
+    fromUnit = input("\nplease choose the first unit: ")
+    toUnit = input("\nplease choose the second unit: ")
+    
+    # This concatenates the units' numbers to get the key to the values.
+    conversionKey = int(str(unitDict.get(fromUnit, 0)) + str(unitDict.get(toUnit, 0)))
 
-    measure = input("\nplease input your measure here: ")
+    conversionValue = conversionValues.get(conversionKey)
+    tempCorrection = tempCorrections.get(conversionKey, 0)
+
+    # When attempting to convert a unit to itself or to something not compatible (liter to kilogram for example), this will stop you.
+    if conversionValue == None:
+        print("invalid conversion")
+        input("Enter 1 to continue: ")
+        continue
+
+    measure = input(f"\nplease input your measurement in {fromUnit} here: ")
     try:
         measure = float(measure)
     except:
         print("please try again.")
         continue
+    
+    # Calculates the output. When the units converted are not temperatures, tempCorrection will be 0, thus doing nothing to the answer.
+    output = measure * conversionValue + tempCorrection
 
-    try:
-        conversionDict.get(conversion)()
-    except:
-        print("invalid conversion")
-        continue
+    print(f"\n{measure} {fromUnit} = {round(output, 2)} {toUnit}")
+    input("Enter 1 to continue: ")
