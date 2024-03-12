@@ -2,50 +2,40 @@
 import itertools
 
 # Values for calculating the conversions.
-conversionValues = {12: 1000,
-                    13: 0.2641721769,
-                    14: 33.814038638,
-                    21: 0.001,
-                    23: 0.0002641722,
-                    24: 0.0338140386,
-                    31: 3.78541,
-                    32: 3785.41,
-                    34: 128,
-                    41: 0.0295735156,
-                    42: 29.573515625,
-                    43: 0.0078125,
-                    56: 2.2046244202,
-                    65: 0.453592,
-                    78: 0.3937007874,
-                    87: 2.54,
-                    910: 1.8,
-                    109: 0.555555555}
+conversionValues = {"LiterMililiter": 1000,
+                    "LiterGallon": 0.2641721769,
+                    "LiterFluid ounce": 33.814038638,
+                    "MililiterLiter": 0.001,
+                    "MililiterGallon": 0.0002641722,
+                    "MililiterFluid ounce": 0.0338140386,
+                    "GallonLiter": 3.78541,
+                    "GallonMililiter": 3785.41,
+                    "GallonFluid ounce": 128,
+                    "Fluid ounceLiter": 0.0295735156,
+                    "Fluid ounceMililiter": 29.573515625,
+                    "Fluid ounceGallon": 0.0078125,
+                    "KilogramPound": 2.2046244202,
+                    "PoundKilogram": 0.453592,
+                    "CentimeterInch": 0.3937007874,
+                    "InchCentimeter": 2.54,
+                    "CelsiusFahrenheit": 1.8,
+                    "FahrenheitCelsius": 0.555555555,
+                    "Degrees CelsiusDegrees Fahrenheit": 1.8,
+                    "Degrees FahrenheitDegrees Celsius": 0.555555555}
 
 # Corrections for temperature, since 0C =/= 0F, to convert them you cannot simply multiply by a number.
-tempCorrections = {910: 32,
-                   109: -17.77777777}
-
-# Assigning integers to the units.
-unitDict = {"Liter": 1,
-            "Mililiter": 2,
-            "Gallon": 3,
-            "Fluid ounce": 4,
-            "Kilogram": 5,
-            "Pound": 6,
-            "Centimeter": 7,
-            "Inch": 8,
-            "Degrees Celsius": 9,
-            "Degrees Fahrenheit": 10,
-            "Celsius": 9,
-            "Fahrenheit": 10}
+tempCorrections = {"CelsiusFahrenheit": 32,
+                   "FahrenheitCelsius": -17.77777777,
+                   "Degrees CelsiusDegrees Fahrenheit": 32,
+                   "Degrees FahrenheitDegrees Celsius": -17.77777777}
 
 for _ in itertools.count():
-    print("\nList of available units (v2.0):\n\nLiter\nMililiter\nGallon\nFluid ounce\nKilogram\nPound\nCentimeter\nInch\nDegrees Celsius\nDegrees Fahrenheit")
+    print("\nList of available units (v2.1):\n\nLiter\nMililiter\nGallon\nFluid ounce\nKilogram\nPound\nCentimeter\nInch\nDegrees Celsius\nDegrees Fahrenheit")
     fromUnit = input("\nplease choose the first unit: ")
     toUnit = input("\nplease choose the second unit: ")
     
-    # This concatenates the units' numbers to get the key to the values.
-    conversionKey = int(str(unitDict.get(fromUnit, 0)) + str(unitDict.get(toUnit, 0)))
+    # This concatenates the units to get the key to the values.
+    conversionKey = str(fromUnit) + str(toUnit)
 
     conversionValue = conversionValues.get(conversionKey)
     tempCorrection = tempCorrections.get(conversionKey, 0)
