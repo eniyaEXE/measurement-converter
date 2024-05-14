@@ -37,7 +37,7 @@ tempCorrections = {"celsius-fahrenheit": 32,
                    "degrees fahrenheit-degrees celsius": -17.77777777}
 
 for _ in itertools.count():
-    print(f"\n{blue}List of available units (v2.1){clear}:")
+    print(f"\n{blue}List of available units (v2.2){clear}:")
     for item in units:
         print(item)
     fromUnit = input(f"\n{blue}please choose the first unit{clear}: ").lower()
