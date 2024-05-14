@@ -5,6 +5,8 @@ units supported (v2.2):
 
 Liter, Mililiter, Gallon, Fluid ounce, Kilogram, Pound, Centimeter, Inch, Degrees Celsius, Degrees Fahrenheit
 
-![image](https://github.com/eniyaEXE/measurement-converter/assets/161463527/98687d99-06f4-4e82-8ac5-e674c2c75684)
+more units will be added in future updates
+
+![image](https://github.com/eniyaEXE/measurement-converter/assets/161463527/18b9a526-4924-4f31-bbac-98c43ac752ea)
 
 ^example image^
